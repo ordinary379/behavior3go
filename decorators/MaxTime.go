@@ -65,10 +65,9 @@ func (this *MaxTime) OnTick(tick *Tick) b3.Status {
 	}
 	var currTime int64 = time.Now().UnixNano() / 1000000
 	var startTime int64 = tick.Blackboard.GetInt64("startTime", tick.GetTree().GetID(), this.GetID())
-	var status = this.GetChild().Execute(tick)
 	if currTime-startTime > this.maxTime {
 		return b3.FAILURE
 	}
 
-	return status
+	return this.GetChild().Execute(tick)
 }
